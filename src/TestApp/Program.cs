@@ -30,7 +30,6 @@ namespace TestApp
                 })
                 .ConfigureServices((context, services) =>
                 {
-                    services.AddSingleton<LoggerChannel>();
                     services.AddHostedService<TestAppHostedService>();
                 });
     }

@@ -20,6 +20,7 @@ namespace Rrs.Microsoft.Logging
             builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoggerProvider, ChannelLoggerProvider>());
             builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<IConfigureOptions<ChannelLoggerOptions>, ChannelLoggerOptionsSetup>());
             builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<IOptionsChangeTokenSource<ChannelLoggerOptions>, LoggerProviderOptionsChangeTokenSource<ChannelLoggerOptions, ChannelLoggerProvider>>());
+            builder.Services.AddSingleton<LoggerChannel>();
             return builder;
         }
         /// <summary>
