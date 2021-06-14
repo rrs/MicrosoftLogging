@@ -4,6 +4,8 @@ using System;
 using System.Threading.Tasks;
 using Rrs.Microsoft.Logging;
 using System.Threading.Channels;
+using Microsoft.Extensions.Logging;
+using System.Linq;
 
 namespace TestApp
 {
@@ -16,10 +18,12 @@ namespace TestApp
             Task.Run(async () => 
             {
                 while (await channel.Reader.WaitToReadAsync())
-                    Console.WriteLine(channel.Reader.ReadAsync());
+                    Console.WriteLine(render(await channel.Reader.ReadAsync()));
             });
             await host.RunAsync();
         }
+
+        static string render(Log log) => string.Concat(log.Scope.Select(o => $"{o} => ")) + log.Message;
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
@@ -27,6 +31,7 @@ namespace TestApp
                 .ConfigureLogging(logging =>
                 {
                     logging.AddChannelLogger();
+                    logging.AddConsole();
                 })
                 .ConfigureServices((context, services) =>
                 {

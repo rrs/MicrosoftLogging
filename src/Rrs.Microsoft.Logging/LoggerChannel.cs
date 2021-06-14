@@ -4,6 +4,6 @@ namespace Rrs.Microsoft.Logging
 {
     public class LoggerChannel
     {
-        public Channel<string> Channel { get; } = System.Threading.Channels.Channel.CreateUnbounded<string>();
+        public Channel<Log> Channel { get; } = System.Threading.Channels.Channel.CreateUnbounded<Log>();
     }
 }
